@@ -10,14 +10,14 @@ public class App1 {
         final String COLOR_GREEN_BOLD = "\033[32;1m";
         final String RESET = "\033[0m";
 
-        final String DASHBOARD = "\u1F4B0 Welcome to Smart Banking";
-        final String OPEN_NEW_ACCOUNT = "\u2795 Open New Account";
-        final String DEPOSIT_MONEY = "\u1F4B5 Deposit Money";
-        final String WITHDRAW_MONEY = "\u1F4B3 Withdraw Money";
-        final String TRANSFER_MONEY = "\\u1F4B8 Transfer Money";
-        final String CHECK_ACCOUNT_BALANCE = "\u1F4B2 Check Account Balance";
-        final String DROP_EXISTING_ACCOUNT = "\u274C Drop Existing Account";
-        final String EXIT = "\u1F911 Exit";
+        final String DASHBOARD = "💰"+" Welcome to Smart Banking";
+        final String OPEN_NEW_ACCOUNT = "💳"+" Open New Account";
+        final String DEPOSIT_MONEY = "💵"+" Deposit Money";
+        final String WITHDRAW_MONEY = "💶"+" Withdraw Money";
+        final String TRANSFER_MONEY = "💸"+" Transfer Money";
+        final String CHECK_ACCOUNT_BALANCE = "🤑"+" Check Account Balance";
+        final String DROP_EXISTING_ACCOUNT = "❌"+" Drop Existing Account";
+        final String EXIT = "👋"+" Exit";
 
         
 
@@ -30,7 +30,7 @@ public class App1 {
 
         String screen = DASHBOARD;
 
-        mainLoop:
+    
         do{
             final String APP_TITLE = String.format("%s%s%s",COLOR_BLUE_BOLD, screen, RESET);
 
@@ -85,7 +85,6 @@ public class App1 {
                         }
                     }while(!valid);
                     
-
                     String[] newCustomer = new String[customerNames.length + 1];
                     for (int i = 0; i < customerNames.length; i++) {
                         newCustomer[i] = customerNames[i];
@@ -100,7 +99,7 @@ public class App1 {
                         initialDeposit = scanner.nextInt();
                         scanner.nextLine();
                         
-                        if(!(initialDeposit > 5000)){
+                        if(!(initialDeposit >= 5000)){
                             System.out.printf(ERROR_MSG, "Insufficient Amount!");
                             valid = false;
                             continue;
@@ -115,17 +114,12 @@ public class App1 {
                     initialDepoNew[initialDepoNew.length -1] = initialDeposit;
                     initialDepo = initialDepoNew;
 
-
                     System.out.println();
                     System.out.printf(SUCCESS_MSG, String.format("SDB-%05d:%s has been saved successfully.", customerNames.length, name));
                     System.out.print("\tDo you want to continue adding (Y/n)? ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
                     screen = DASHBOARD;
                     break;
-
-                    
-
-
 
         }
         }while (true); 
