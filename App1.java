@@ -59,7 +59,43 @@ public class App1 {
                         case 7: System.out.println(CLEAR); System.exit(0);
                         default: continue;
                     }
+                    break;
+                    case OPEN_NEW_ACCOUNT:
+                    System.out.printf("\tNew Account ID: SDB-%05d \n", (customerNames.length + 1));
                     
+                    boolean valid;
+                    String name;
+                    do{
+                        valid = true;
+                        System.out.print("\tEnter Customer Name: ");
+                        name = scanner.nextLine().strip();
+                        if (name.isBlank()){
+                            System.out.printf(ERROR_MSG, "Name can't be Empty!");
+                            valid = false;
+                            continue;
+                        }
+                        for (int i = 0; i < name.length(); i++) {
+                            if (!(Character.isLetter(name.charAt(i)) || 
+                                Character.isSpaceChar(name.charAt(i))) ) {
+                                System.out.printf(ERROR_MSG, "Invalid Name!");
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }while(!valid);
+
+                    String[] newCustomer = new String[customerNames.length + 1];
+                    for (int i = 0; i < customerNames.length; i++) {
+                        newCustomer[i] = customerNames[i];
+                    }
+                    newCustomer[newCustomer.length -1] = name;
+                    customerNames = newCustomer;
+
+                    System.out.println();
+                    System.out.print("\t" + name + " added sucessfully.\n\tDo you want to add new student (Y/n)? ");
+                    if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                    screen = DASHBOARD;
+                    break;
 
         }
         }while (true); 
