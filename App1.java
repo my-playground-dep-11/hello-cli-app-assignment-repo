@@ -7,7 +7,7 @@ public class App1 {
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
         final String COLOR_RED_BOLD = "\033[31;1m";
-        final String COLOR_GREEN_BOLD = "\033[33;1m";
+        final String COLOR_GREEN_BOLD = "\033[32;1m";
         final String RESET = "\033[0m";
 
         final String DASHBOARD = "\u1F4B0 Welcome to Smart Banking";
@@ -19,13 +19,14 @@ public class App1 {
         final String DROP_EXISTING_ACCOUNT = "\u274C Drop Existing Account";
         final String EXIT = "\u1F911 Exit";
 
-        //System.out.println(DASHBOARD);
+        
 
         final String ERROR_MSG = String.format("\t%s%s%s\n", COLOR_RED_BOLD, "%s", RESET);
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
     
         //String[] accountID = new String[0];
         String[] customerNames = new String[0];
+        int[] initialDepo = new int[customerNames.length];
 
         String screen = DASHBOARD;
 
@@ -83,6 +84,7 @@ public class App1 {
                             }
                         }
                     }while(!valid);
+                    
 
                     String[] newCustomer = new String[customerNames.length + 1];
                     for (int i = 0; i < customerNames.length; i++) {
@@ -91,11 +93,39 @@ public class App1 {
                     newCustomer[newCustomer.length -1] = name;
                     customerNames = newCustomer;
 
+                    int initialDeposit;
+                    do{
+                        valid = true;
+                        System.out.print("\tInitial Deposit: ");
+                        initialDeposit = scanner.nextInt();
+                        scanner.nextLine();
+                        
+                        if(!(initialDeposit > 5000)){
+                            System.out.printf(ERROR_MSG, "Insufficient Amount!");
+                            valid = false;
+                            continue;
+                    }
+
+                    }while(!valid);
+
+                    int[] initialDepoNew = new int[initialDepo.length + 1];
+                    for (int i = 0; i < initialDepo.length; i++) {
+                        initialDepoNew[i] = initialDepo[i];
+                    }
+                    initialDepoNew[initialDepoNew.length -1] = initialDeposit;
+                    initialDepo = initialDepoNew;
+
+
                     System.out.println();
-                    System.out.print("\t" + name + " added sucessfully.\n\tDo you want to add new student (Y/n)? ");
+                    System.out.printf(SUCCESS_MSG, String.format("SDB-%05d:%s has been saved successfully.", customerNames.length, name));
+                    System.out.print("\tDo you want to continue adding (Y/n)? ");
                     if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
                     screen = DASHBOARD;
                     break;
+
+                    
+
+
 
         }
         }while (true); 
